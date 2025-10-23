@@ -3,16 +3,16 @@ package model
 class Rectangulo(var color: Int, var ancho: Int, var alto: Int) {
 
     // Coordenadas iniciales. Propiedades
-    var x = 0
-    var y = 0
+    var x = 485
+    var y = 1170
 
     // Construimos comportamientos
     fun moverArriba(){
-        y+=50
+        y-=50
     }
 
     fun moverAbajo(){
-        y-=50
+        y+=50
     }
 
     fun moverIzquierda(){
@@ -26,10 +26,6 @@ class Rectangulo(var color: Int, var ancho: Int, var alto: Int) {
     fun cambiarTamanio(nuevoAncho: Int, nuevoAlto: Int){
         ancho = nuevoAncho
         alto = nuevoAlto
-    }
-
-    fun cambiarColor(nuevoColor: Int){
-        color = nuevoColor
     }
 
 }

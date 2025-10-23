@@ -29,27 +29,49 @@ class MainActivity : AppCompatActivity() {
 
         btnArriba.setOnClickListener {
             rectangulo.moverArriba()
+            actualizarVista(rectangulo, rectanguloView)
         }
 
         btnAbajo.setOnClickListener {
             rectangulo.moverAbajo()
+            actualizarVista(rectangulo, rectanguloView)
         }
 
         btnDerecha.setOnClickListener {
             rectangulo.moverDerecha()
+            actualizarVista(rectangulo, rectanguloView)
         }
 
         btnIzquierda.setOnClickListener {
             rectangulo.moverIzquierda()
+            actualizarVista(rectangulo, rectanguloView)
         }
 
         btnCambiarTamanio.setOnClickListener {
-            rectangulo.cambiarTamanio(50, 50)
+            rectangulo.cambiarTamanio(200, 200)
+            actualizarVista(rectangulo, rectanguloView)
         }
 
         btnCambiarColor.setOnClickListener {
-            rectangulo.cambiarColor(ContextCompat.getColor(this, R.color.blue))
+            rectangulo.color = (ContextCompat.getColor(this, R.color.orange))
+            actualizarVista(rectangulo, rectanguloView)
         }
+
+    }
+
+    private fun actualizarVista(rectangulo: Rectangulo, rectanguloView: View){
+
+        // Al rectanguloView la da el valor del rectangulo clase Rectangulo
+        rectanguloView.layoutParams.width = rectangulo.ancho
+        rectanguloView.layoutParams.height = rectangulo.alto
+
+        rectanguloView.setBackgroundColor(rectangulo.color)
+
+        rectanguloView.x = rectangulo.x.toFloat()
+        rectanguloView.y = rectangulo.y.toFloat()
+
+        // método para que tome efecto, solicita de nuevo el layout
+        rectanguloView.requestLayout()
 
     }
 }

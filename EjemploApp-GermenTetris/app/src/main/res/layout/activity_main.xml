@@ -9,10 +9,10 @@
 
     <View
         android:id="@+id/rectangulo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="100px"
+        android:layout_height="100px"
         android:layout_centerInParent="true"
-        android:background="#00BCD4" />
+        android:background="#4CAF50" />
 
     <Button
         android:id="@+id/btnArriba"
