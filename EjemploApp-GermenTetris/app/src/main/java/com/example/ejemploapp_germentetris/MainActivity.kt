@@ -1,5 +1,6 @@
 package com.example.ejemploapp_germentetris
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,6 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import model.Rectangulo
+import kotlin.math.absoluteValue
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,44 +20,57 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val rectanguloView: View = findViewById(R.id.rectangulo)
+        rectanguloView.post{
+            val Xinicial = rectanguloView.x.toInt()
+            val Yinicial = rectanguloView.y.toInt()
+            val anchoInicial = rectanguloView.width
+            val altoInicial = rectanguloView.height
 
-        val rectangulo: Rectangulo = Rectangulo(ContextCompat.getColor(this, R.color.green), 100, 100)
+            val rectangulo: Rectangulo = Rectangulo(
+                ContextCompat.getColor(this, R.color.green),
+                anchoInicial,
+                altoInicial
+            ).apply {
+                x = Xinicial
+                y = Yinicial
+            }
 
-        val btnArriba: Button = findViewById(R.id.btnArriba)
-        val btnAbajo: Button = findViewById(R.id.btnAbajo)
-        val btnIzquierda: Button = findViewById(R.id.btnIzquierda)
-        val btnDerecha: Button = findViewById(R.id.btnDerecha)
-        val btnCambiarTamanio: Button = findViewById(R.id.btnCambiarTamanio)
-        val btnCambiarColor: Button = findViewById(R.id.btnCambiarColor)
+            val btnArriba: Button = findViewById(R.id.btnArriba)
+            val btnAbajo: Button = findViewById(R.id.btnAbajo)
+            val btnIzquierda: Button = findViewById(R.id.btnIzquierda)
+            val btnDerecha: Button = findViewById(R.id.btnDerecha)
+            val btnCambiarTamanio: Button = findViewById(R.id.btnCambiarTamanio)
+            val btnCambiarColor: Button = findViewById(R.id.btnCambiarColor)
 
-        btnArriba.setOnClickListener {
-            rectangulo.moverArriba()
-            actualizarVista(rectangulo, rectanguloView)
-        }
+            btnArriba.setOnClickListener {
+                rectangulo.moverArriba()
+                actualizarVista(rectangulo, rectanguloView)
+            }
 
-        btnAbajo.setOnClickListener {
-            rectangulo.moverAbajo()
-            actualizarVista(rectangulo, rectanguloView)
-        }
+            btnAbajo.setOnClickListener {
+                rectangulo.moverAbajo()
+                actualizarVista(rectangulo, rectanguloView)
+            }
 
-        btnDerecha.setOnClickListener {
-            rectangulo.moverDerecha()
-            actualizarVista(rectangulo, rectanguloView)
-        }
+            btnDerecha.setOnClickListener {
+                rectangulo.moverDerecha()
+                actualizarVista(rectangulo, rectanguloView)
+            }
 
-        btnIzquierda.setOnClickListener {
-            rectangulo.moverIzquierda()
-            actualizarVista(rectangulo, rectanguloView)
-        }
+            btnIzquierda.setOnClickListener {
+                rectangulo.moverIzquierda()
+                actualizarVista(rectangulo, rectanguloView)
+            }
 
-        btnCambiarTamanio.setOnClickListener {
-            rectangulo.cambiarTamanio(200, 200)
-            actualizarVista(rectangulo, rectanguloView)
-        }
+            btnCambiarTamanio.setOnClickListener {
+                rectangulo.cambiarTamanio(200, 200)
+                actualizarVista(rectangulo, rectanguloView)
+            }
 
-        btnCambiarColor.setOnClickListener {
-            rectangulo.color = (ContextCompat.getColor(this, R.color.orange))
-            actualizarVista(rectangulo, rectanguloView)
+            btnCambiarColor.setOnClickListener {
+                rectangulo.color = generarColorAleatorio()
+                actualizarVista(rectangulo, rectanguloView)
+            }
         }
 
     }
@@ -73,5 +89,13 @@ class MainActivity : AppCompatActivity() {
         // método para que tome efecto, solicita de nuevo el layout
         rectanguloView.requestLayout()
 
+    }
+
+    private fun generarColorAleatorio() : Int{
+        val rojo = Random.nextInt()
+        val verde = Random.nextInt()
+        val azul = Random.nextInt()
+
+        return Color.rgb(rojo, verde, azul);
     }
 }
