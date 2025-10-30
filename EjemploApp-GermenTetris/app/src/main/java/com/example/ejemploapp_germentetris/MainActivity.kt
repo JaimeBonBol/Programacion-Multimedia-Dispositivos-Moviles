@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import model.Rectangulo
+import model.RectanguloBorder
 import kotlin.math.absoluteValue
 import kotlin.random.Random
 
@@ -26,13 +27,23 @@ class MainActivity : AppCompatActivity() {
             val anchoInicial = rectanguloView.width
             val altoInicial = rectanguloView.height
 
-            val rectangulo: Rectangulo = Rectangulo(
+            /*val rectangulo: Rectangulo = Rectangulo(
                 ContextCompat.getColor(this, R.color.green),
                 anchoInicial,
                 altoInicial
             ).apply {
                 x = Xinicial
                 y = Yinicial
+            }*/
+
+            val rectangulo: RectanguloBorder = RectanguloBorder(
+                ContextCompat.getColor(this, R.color.green),
+                anchoInicial,
+                altoInicial,
+            ).apply {
+                x = Xinicial
+                y = Yinicial
+                bordeColor = ContextCompat.getColor(this@MainActivity, R.color.black)
             }
 
             val btnArriba: Button = findViewById(R.id.btnArriba)
@@ -41,6 +52,7 @@ class MainActivity : AppCompatActivity() {
             val btnDerecha: Button = findViewById(R.id.btnDerecha)
             val btnCambiarTamanio: Button = findViewById(R.id.btnCambiarTamanio)
             val btnCambiarColor: Button = findViewById(R.id.btnCambiarColor)
+            val btnCambiarColorBordes: Button = findViewById(R.id.btnCambiarColorBorde)
 
             btnArriba.setOnClickListener {
                 rectangulo.moverArriba()
@@ -69,6 +81,10 @@ class MainActivity : AppCompatActivity() {
 
             btnCambiarColor.setOnClickListener {
                 rectangulo.color = generarColorAleatorio()
+                actualizarVista(rectangulo, rectanguloView)
+            }
+            btnCambiarColorBordes.setOnClickListener {
+                rectangulo.cambiarColorBorder(generarColorAleatorio())
                 actualizarVista(rectangulo, rectanguloView)
             }
         }

@@ -1,6 +1,6 @@
 package model
 
-class Rectangulo(var color: Int, var ancho: Int, var alto: Int) {
+open class Rectangulo(var color: Int, var ancho: Int, var alto: Int) {
 
     // Coordenadas iniciales. Propiedades
     var x = 485
