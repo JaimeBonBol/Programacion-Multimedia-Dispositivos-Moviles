@@ -1,6 +1,7 @@
 package com.example.ejemploapp_germentetris
 
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -97,7 +98,13 @@ class MainActivity : AppCompatActivity() {
         rectanguloView.layoutParams.width = rectangulo.ancho
         rectanguloView.layoutParams.height = rectangulo.alto
 
-        rectanguloView.setBackgroundColor(rectangulo.color)
+        val drawable = GradientDrawable()
+
+        drawable.setColor(rectangulo.color)
+        drawable.setStroke(10, rectangulo.color)
+
+        //rectanguloView.setBackgroundColor(rectangulo.color)
+        rectanguloView.background = drawable
 
         rectanguloView.x = rectangulo.x.toFloat()
         rectanguloView.y = rectangulo.y.toFloat()
