@@ -1,5 +1,6 @@
 package com.example.iniciacion_jetpackcompose
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -81,32 +83,35 @@ fun tarjetaPerfil(){
                         .padding(top = 10.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    // Botón seguir
-                    Button(
-                        onClick = {},
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(id = R.color.teal_700)
-                        )
-                    ) {
-                        Text(
-                            text = "Seguir"
-                        )
-                    }
+                    // Botón seguir a partir de la función que he creado para que cuando pulse apareca un toast
+                    botonToast("Seguir")
 
-                    // Botón mensaje
-                    Button(
-                        onClick = {},
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = colorResource(id = R.color.black)
-                        )
-                    ) {
-                        Text(
-                            text = "Mensaje"
-                        )
-                    }
+                    // Botón mensaje a partir de la fucnción que he creado para que cuando pulse aparexca un toast
+                    botonToast("Mensaje")
                 }
             }
         }
+    }
+}
+
+// Función para crear un boton con un Toast
+@Composable
+fun botonToast(textoBoton : String){
+    // Obtener el contexto actual de la app, necesario para el tast
+    val contexto = LocalContext.current
+
+    // Crear el boton
+    Button(
+        onClick = {
+            Toast.makeText(contexto, "Has pulsado el botón " + textoBoton + "!", Toast.LENGTH_LONG).show()
+        },
+        colors = ButtonDefaults.buttonColors(
+            colorResource(id = R.color.teal_700)
+        )
+    ) {
+        Text(
+            text = textoBoton
+        )
     }
 }
 
