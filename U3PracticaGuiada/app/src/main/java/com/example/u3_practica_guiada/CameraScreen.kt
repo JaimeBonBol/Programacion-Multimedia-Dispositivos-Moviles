@@ -25,10 +25,18 @@ import androidx.navigation.NavController
 @Composable
 fun CameraScreen(navController: NavController) {
 
-    val launcher = rememberLauncherForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
+    // Variable de estado para guardar la foto capturada
+    var imageBitmap by remember { mutableStateOf<Bitmap?>(null) }
 
+    // Preparamos el lanzador que recibirá el resultado de la cámara
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        // Si el resultado es OK, recuperamos la miniatura de la foto
+        if (result.resultCode == android.app.Activity.RESULT_OK) {
+            val bitmap = result.data?.extras?.get("data") as? Bitmap
+            imageBitmap = bitmap
+        }
     }
 
     Column(
@@ -51,6 +59,17 @@ fun CameraScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text("Abrir cámara")
+        }
+
+        // Si hay foto capturada, la mostramos en pantalla
+        imageBitmap?.let {
+            Spacer(Modifier.height(20.dp))
+            Text("Foto capturada:")
+            Image(
+                bitmap = it.asImageBitmap(),
+                contentDescription = "Foto",
+                modifier = Modifier.padding(16.dp)
+            )
         }
 
         // Botón para volver al menú
